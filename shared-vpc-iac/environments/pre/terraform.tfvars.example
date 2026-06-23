@@ -1,0 +1,16 @@
+# Configuration for the PRE (Pre-Production) Environment of Swiss Auditor
+# Copy this file to 'terraform.tfvars' and fill in your actual values before deploying.
+
+# 1. Network Settings (VPC Spoke of the Host Project)
+host_project_id      = "smg-corp-pre-network-project"  # Replace with the client's actual PRE Host Project ID
+vpc_name             = "smg-pre-vpc"                    # Replace with the client's actual PRE VPC name
+shared_vpc_subnet    = "backend"                        # The subnetwork name inside the PRE VPC (e.g., 'backend')
+region               = "us-east1"                       # Primary region for deployment
+
+# 2. Service Project & Folder Settings (Application Space)
+service_project_name = "smg-swiss-auditor-pre"          # Friendly name for the new service project
+folder_id            = "YOUR_PRE_FOLDER_ID"             # Numeric Folder ID where the project will be created
+billing_account_id   = "YOUR_BILLING_ACCOUNT_ID"        # GCP Billing Account ID (e.g., 012345-6789AB-CDEF01)
+
+# 3. Database Credentials
+db_password          = "your-secure-pre-db-password"    # Password for the 'postgres' user in AlloyDB
