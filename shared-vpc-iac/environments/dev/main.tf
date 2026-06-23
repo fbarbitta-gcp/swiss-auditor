@@ -29,13 +29,13 @@ provider "google" {
   region = var.region
 }
 
-# 1. Host Project configuring Shared VPC
-module "host_project" {
-  source     = "../../modules/host_project"
-  project_id = var.host_project_id
-  vpc_name   = var.vpc_name
-  region     = var.region
-}
+# 1. Host Project configuring Shared VPC (Comentado - ya que reutilizamos el Spoke existente)
+# module "host_project" {
+#   source     = "../../modules/host_project"
+#   project_id = var.host_project_id
+#   vpc_name   = var.vpc_name
+#   region     = var.region
+# }
 
 # 2. Service Project (attached to Shared VPC)
 module "service_project" {
@@ -44,7 +44,7 @@ module "service_project" {
   project_id         = var.service_project_id
   folder_id          = var.folder_id
   billing_account_id = var.billing_account_id
-  host_project_id    = module.host_project.project_id
+  host_project_id    = var.host_project_id
 }
 
 # 3. Deploy Worker Application within Service Project
@@ -53,8 +53,8 @@ module "worker_application" {
 
   project_id         = module.service_project.project_id
   region             = var.region
-  shared_vpc_project = module.host_project.project_id
-  shared_vpc_network = module.host_project.network_name
+  shared_vpc_project = var.host_project_id
+  shared_vpc_network = var.vpc_name
   shared_vpc_subnet  = var.shared_vpc_subnet
 
   bucket_name        = module.storage.bucket_name
@@ -87,8 +87,8 @@ module "alloydb" {
   project_id         = module.service_project.project_id
   region             = var.region
   db_password        = var.db_password
-  shared_vpc_project = module.host_project.project_id
-  shared_vpc_network = module.host_project.network_name
+  shared_vpc_project = var.host_project_id
+  shared_vpc_network = var.vpc_name
   shared_vpc_subnet  = var.shared_vpc_subnet
 
   depends_on = [module.service_project]

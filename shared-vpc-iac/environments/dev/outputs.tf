@@ -14,12 +14,12 @@
 
 output "host_project_id" {
   description = "The ID of the host project."
-  value       = module.host_project.project_id
+  value       = var.host_project_id
 }
 
 output "shared_vpc_name" {
   description = "The name of the Shared VPC."
-  value       = module.host_project.network_name
+  value       = var.vpc_name
 }
 
 output "service_project_id" {
