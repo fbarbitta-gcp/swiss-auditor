@@ -1,0 +1,39 @@
+# Exclude local data and secrets
+data/
+notes/
+ai_docs/
+*Deprecado]
+.agents/*
+*__pycache__*
+.venv/
+venv/
+env/
+.env
+
+# Exclude Terraform infrastructure code from the application image
+shared-vpc-iac/
+.gemini/
+.git/
+
+# Exclude scripts not needed for running the worker
+ingest_*.sql
+dispatch_jobs.py
+generate_ingest_sql.py
+*schema.json
+[SwissMedical] TDD.md
+tests/*
+run_alloy_proxy
+
+# Exclude independent subprojects and additional images
+gemini-enterprise/
+images/
+
+# Exclude documentation and ignore files
+*.md
+!agents/resources/data_grafo_structured.md
+.gitignore
+
+# Exclude other scripts and unused files
+permission.txt
+ingest.sh
+schema.sql

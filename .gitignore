@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*schema.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+data/*
+*Deprecado]
+.agents/*
+ai_docs/
+notes/*
+skills-lock.json
+ingest_25966_132797001_108.sql
+ingest.sh
+*__pycache__
+generate_ingest_sql.py
+[SwissMedical] TDD.md
+tests/fixtures/*
+run_alloy_proxy
+permission.txt
+.adk
+*SwissMedical] TDD.md
+cloudbuild_argolis.yaml
+permissions.md
+upload_triggers.sh
+tests/*

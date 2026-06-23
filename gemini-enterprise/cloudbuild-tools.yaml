@@ -1,0 +1,44 @@
+steps:
+  # 1. Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:$BUILD_ID', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:latest', '.']
+    id: 'Build Docker Image'
+
+  # 2. Push the container image to Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:$BUILD_ID']
+    id: 'Push Docker Image'
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:latest']
+    id: 'Push Latest Image'
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_SERVICE_NAME'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:$BUILD_ID'
+      - '--region'
+      - '$_REGION'
+      - '--platform'
+      - 'managed'
+      - '--no-allow-unauthenticated'
+      - '--network'
+      - 'projects/host-project-argolis/global/networks/shared-vpc-argolis'
+      - '--subnet'
+      - 'projects/host-project-argolis/regions/us-central1/subnetworks/subnet-apps-01'
+      - '--set-secrets=DB_PASSWORD=db-password:latest,DB_HOST=db-host:latest,DB_USER=db-user:latest,DB_NAME=db-name:latest'
+      - '--vpc-egress=private-ranges-only'
+    id: 'Deploy to Cloud Run'
+
+substitutions:
+  _SERVICE_NAME: alloydb-tools-proxy
+  _REGION: us-central1
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:$BUILD_ID'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/cloudrun-images/alloydb-tools-proxy:latest'

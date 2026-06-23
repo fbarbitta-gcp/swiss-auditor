@@ -1,0 +1,15 @@
+flask
+gunicorn
+google-adk
+google-cloud-storage
+google-cloud-aiplatform
+google-genai
+google-cloud-logging
+pypdf
+tenacity
+google-auth
+requests
+psycopg2-binary
+markdown
+weasyprint
+ruff
