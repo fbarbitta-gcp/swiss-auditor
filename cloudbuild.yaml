@@ -55,9 +55,9 @@ steps:
       - '--min-instances'
       - '0'
       - '--network'
-      - 'projects/vpc-host-nonprod-lv367-or671/global/networks/vpc-noprod-shared'
+      - 'projects/$_HOST_PROJECT_ID/global/networks/$_VPC_NAME'
       - '--subnet'
-      - 'projects/vpc-host-nonprod-lv367-or671/regions/southamerica-east1/subnetworks/subnet-non-prod-1'
+      - 'projects/$_HOST_PROJECT_ID/regions/$_REGION/subnetworks/$_SUBNET_NAME'
       - '--set-env-vars=GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global'
       - '--set-secrets=DB_PASSWORD=db-password:latest,DB_HOST=db-host:latest,DB_USER=db-user:latest,DB_NAME=db-name:latest'
       - '--vpc-egress=private-ranges-only'
@@ -66,6 +66,9 @@ steps:
 substitutions:
   _SERVICE_NAME: swiss-auditor-worker
   _REGION: southamerica-east1
+  _HOST_PROJECT_ID: vpc-host-nonprod-lv367-or671
+  _VPC_NAME: vpc-noprod-shared
+  _SUBNET_NAME: subnet-non-prod-1
 
 images:
   - 'gcr.io/$PROJECT_ID/$_SERVICE_NAME:$BUILD_ID'
