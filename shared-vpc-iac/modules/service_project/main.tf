@@ -38,7 +38,10 @@ module "service_project" {
     "aiplatform.googleapis.com",
     "cloudbuild.googleapis.com",
     "artifactregistry.googleapis.com",
-    "cloudscheduler.googleapis.com"
+    "cloudscheduler.googleapis.com",
+    "iam.googleapis.com",
+    "pubsub.googleapis.com",
+    "storage.googleapis.com"
   ]
 
   # Grant IAM roles natively in the project module
