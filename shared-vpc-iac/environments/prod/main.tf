@@ -118,7 +118,8 @@ module "pubsub" {
 
 # 8. Storage Notification to Pub/Sub
 data "google_storage_project_service_account" "gcs_account" {
-  project = module.service_project.project_id
+  project    = module.service_project.project_id
+  depends_on = [module.service_project]
 }
 
 resource "google_pubsub_topic_iam_member" "gcs_publisher" {
